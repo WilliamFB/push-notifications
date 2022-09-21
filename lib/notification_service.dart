@@ -1,5 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+import 'package:push_notifications_test/custom_notification.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -35,7 +36,7 @@ class NotificationService {
     }
   }
 
-  showNotification() {
+  showNotification(CustomNotification notification) {
     final androidDetails = AndroidNotificationDetails(
       'Channel Id',
       'Channel Name',
@@ -46,13 +47,13 @@ class NotificationService {
     );
 
     _localNotifications.show(
-      1,
-      'title',
-      'body',
+      notification.id,
+      notification.title,
+      notification.body,
       NotificationDetails(
         android: androidDetails,
       ),
-      payload: 'payload que vai para o _onSelectNotification',
+      payload: notification.payload,
     );
   }
 

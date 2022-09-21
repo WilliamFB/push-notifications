@@ -1,55 +1,32 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:push_notifications_test/firebase_messaging_service.dart';
+import 'package:push_notifications_test/firebase_options.dart';
 import 'package:push_notifications_test/notification_service.dart';
 
-void main() {
+import 'app_widget.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(
-    MyApp(),
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
-}
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Notifications',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final _notificationService = NotificationService();
-
-  @override
-  void initState() {
-    super.initState();
-    _notificationService.initializePlatformNotifications();
-  }
-
-  void _notify() async {
-    _notificationService.showNotification();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Notifications'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _notify,
-        child: Icon(Icons.add),
-      ),
-    );
-  }
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider<NotificationService>(
+          create: (_) => NotificationService(),
+        ),
+        Provider<FirebaseMessagingService>(
+          create: (context) => FirebaseMessagingService(
+            context.read<NotificationService>(),
+          ),
+        ),
+      ],
+      child: AppWidget(),
+    ),
+  );
 }
