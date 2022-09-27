@@ -21,3 +21,5 @@ if #available(iOS 10.0, *) {
     UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
 }
 ```
+
+Seguir as instruções do link: https://firebase.flutter.dev/docs/messaging/apple-integration/#1-registering-a-key
