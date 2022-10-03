@@ -23,3 +23,11 @@ if #available(iOS 10.0, *) {
 ```
 
 Seguir as instruções do link: https://firebase.flutter.dev/docs/messaging/apple-integration/#1-registering-a-key
+
+## Outros
+
+Não esquecer de colocar o ensureInitialized na main.dart
+
+```dart
+WidgetsFlutterBinding.ensureInitialized();
+```
