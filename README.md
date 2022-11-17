@@ -31,3 +31,9 @@ Não esquecer de colocar o ensureInitialized na main.dart
 ```dart
 WidgetsFlutterBinding.ensureInitialized();
 ```
+
+Ajustes solicitados para subir bundle na store (Android 12) (Veja também a alteração feita no commit)
+
+```
+https://www.youtube.com/watch?v=hy0J8MNnE6g
+```
